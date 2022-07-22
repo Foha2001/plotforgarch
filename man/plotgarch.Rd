@@ -2,12 +2,12 @@
 % Please edit documentation in R/plotgarch.R
 \name{plotgarch}
 \alias{plotgarch}
-\title{package to plot garch model}
+\title{package to plot Garch model}
 \usage{
 plotgarch(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{time series xts object}
 }
 \value{
 plot garch(1,1)

@@ -2,11 +2,17 @@
 #'
 #' This package is used to plot series using Garch(1,1) model
 #'
-#' @param x
+#' @param x time series xts object
 #'
 #' @return plot garch(1,1)
 #' @export
-#'
+#' @importFrom zoo index
+#' @importFrom xts xts
+#' @importFrom tibble rownames_to_column
+#' @importFrom dplyr mutate
+#' @importFrom ggplot2 ggplot
+#' @importFrom scales date_format
+
 #' @examples
 #' plotgarch(x)
 #'
@@ -14,39 +20,29 @@ plotgarch <- function(x){
 
   alpha <- 0.1
   beta <- 0.8
-  omega <- var(R_data$GSPTSE.Close)*(1-alpha-beta)
-  e <- R_data$GSPTSE.Close-mean(R_data$GSPTSE.Close)
+  omega <- var(x)*(1-alpha-beta)
+  e <- x-mean(x)
   e2 <- e^2
-  nobs <- length(R_data$GSPTSE.Close)
+  nobs <- length(x)
   predvar <- rep(NA,nobs)
-  predvar[1] <- var(R_data$GSPTSE.Close)
+  predvar[1] <- var(x)
   for (t in 2:nobs) {
     predvar[t] <- omega + alpha * e2[t-1] +beta * predvar[t-1]
   }
   predvol <- sqrt(predvar)
-  predvol <- xts(predvol, order.by = index(R_data))
-  #plot(predvol, type='l', main=" Litecoin Volatility")
+  predvol <- xts::xts(predvol, order.by = index(x))
   colnames(predvol)<- c("value")
-  library(scales)
-  library(tidyverse)
-  library(dplyr)
-  library(ggplot2)
-  library(tibble)
-  predvol %>%
+    predvol %>%
     as.data.frame() %>%
-    rownames_to_column("Date") %>%
-    mutate(Date = as.Date(Date, format = "%Y-%m-%d")) %>%
-    ggplot(aes(Date, value)) +
+    tibble::rownames_to_column("Date") %>%
+    dplyr::mutate(Date = as.Date(Date, format = "%Y-%m-%d")) %>%
+    ggplot2::ggplot(aes(Date, value)) +
     geom_line() +
     scale_x_date(
       date_breaks = "1 month",
-      labels = date_format("%b\n%Y")) +
+      labels = scales::date_format("%b\n%Y")) +
     theme_minimal() + labs(title = "Canada index Volatility",
                            subtitle = "Garch(1,1)")
-
-
-
-
 
 
 }

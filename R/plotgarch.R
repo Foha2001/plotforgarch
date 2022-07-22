@@ -41,7 +41,7 @@ plotgarch <- function(x){
     scale_x_date(
       date_breaks = "1 month",
       labels = scales::date_format("%b\n%Y")) +
-    theme_minimal() + labs(title = "Canada index Volatility",
+    theme_minimal() + labs(title = "index Volatility",
                            subtitle = "Garch(1,1)")
 
 

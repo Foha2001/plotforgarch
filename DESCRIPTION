@@ -4,7 +4,7 @@ Title: package to plot Garch model
 Version: 0.1.0
 Author: Foued Hamouda
 Maintainer: The package maintainer <foha2001@gmail.comt>
-Description: This package
+Description: This package is used to plot volatility with garch(1,1) model. 
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

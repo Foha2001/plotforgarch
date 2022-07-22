@@ -1,0 +1,11 @@
+Package: plotforgarch
+Type: Package
+Title: package to plot Garch model
+Version: 0.1.0
+Author: Foued Hamouda
+Maintainer: The package maintainer <foha2001@gmail.comt>
+Description: This package
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.2
